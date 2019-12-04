@@ -27,8 +27,10 @@ class HillClimbingAgent():
         if reward >= self.best_reward:
             self.best_reward = reward
             self.best_weights = np.copy(self.weights)
+            ## To control our weights so they dont become too small/huge
             self.noise = max(self.noise/2, 1e-3)
         else:
+            ## To control our weights so they dont become too small/huge
             self.noise = min(self.noise*2, 2)
         self.weights = self.best_weights + self.noise * np.random.rand(*self.state_dim, self.action_size)
 
