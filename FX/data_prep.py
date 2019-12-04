@@ -29,8 +29,3 @@ def feature_engineering(data):
     data['sell_or_buy'] = data['open_close_diff'].apply(lambda x: 1.0 if x > 0 else -1.0) ## 1 = BUY, -1 = SELL
     print(data.head())
     return data
-
-if __name__ == '__main__':
-    path = r'C:\Users\945970\Desktop\random_learning_projects\FX\data'
-    full_data = merge_all_csvs(path)
-    feature_engineering(full_data)
