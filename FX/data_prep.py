@@ -27,5 +27,6 @@ def feature_engineering(data):
     data['ohlc_price'] = (data['low_bid'] + data['high_bid'] + data['open'] + data['close']) / 4.0
     data['open_close_diff'] = data['open'] - data['close']
     data['sell_or_buy'] = data['open_close_diff'].apply(lambda x: 1.0 if x > 0 else -1.0) ## 1 = BUY, -1 = SELL
-    print(data.head())
-    return data
+    data.to_csv(r'C:\Users\945970\Desktop\random_learning_projects\FX\fx_USJPY.csv')
+    csv_file = r'C:\Users\945970\Desktop\random_learning_projects\FX\fx_USJPY.csv'
+    return data, csv_file
