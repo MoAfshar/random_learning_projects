@@ -51,7 +51,7 @@ def heuristic(a, b):
     return distance
 
 def heuristic2(a, b):
-    distance = abs(a.i - b.i) + (a.j - b.j)
+    distance = abs(a.i - b.i) + abs(a.j - b.j)
     return distance
 
 def setup():
@@ -144,5 +144,12 @@ def draw():
     for p in closed_list:
         p.show(color(255, 0, 0))
 
-    for p in path:
-        p.show(color(255, 165, 0))
+    temp = current
+    path.append(temp)
+    while(temp.previous):
+        temp.show(color(255, 165, 0))
+        path.append(temp.previous)
+        temp = temp.previous
+
+    # for p in path:
+    #     p.show(color(255, 165, 0))
