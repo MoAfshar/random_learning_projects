@@ -1,7 +1,7 @@
 ## Attempt to create A* Algorithm
 from random import random
 ## Globals
-cols, rows = 50, 50
+cols, rows = 25, 25
 grid = [[0 for x in range(cols)] for y in range(rows)]
 
 ## Open set contains the nodes that may still require revisiting
@@ -63,6 +63,13 @@ def heuristic(a, b):
 def heuristic2(a, b):
     distance = abs(a.i - b.i) + abs(a.j - b.j)
     return distance
+
+# def draw_path(p):
+#     noFill()
+#     stroke(255)
+#     beginShape() 
+#     vertex(p.i*w + w/2, p.j*h + h/2)
+#     endShape()
 
 def setup():
     global w
@@ -156,9 +163,10 @@ def draw():
         p.show(color(255, 0, 0))
 
     temp = current
-    path.append(temp)
+    #path.append(temp)
     while(temp.previous):
         temp.previous.show(color(255, 165, 0))
         temp.show(color(255, 165, 0))
+        #draw_path(temp.previous)
         path.append(temp.previous)
         temp = temp.previous

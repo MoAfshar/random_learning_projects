@@ -1,7 +1,7 @@
 ## Attempt to create A* Algorithm
 from random import random
 ## Globals
-cols, rows = 25, 25
+cols, rows = 50, 50
 grid = [[0 for x in range(cols)] for y in range(rows)]
 
 ## Open set contains the nodes that may still require revisiting
