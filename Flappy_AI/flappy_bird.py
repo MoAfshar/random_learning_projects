@@ -238,6 +238,7 @@ def main(genomes, config):
             bird_top_pipe_dist = abs(bird.y - pipes[pipe_indx].height)
             bird_bott_pipe_dist =  abs(bird.y - pipes[pipe_indx].bottom)
             output = nets[idx].activate((bird.y, bird_top_pipe_dist, bird_bott_pipe_dist))
+            print(bird.y, bird_top_pipe_dist, bird_bott_pipe_dist)
             ## Output of neuron is in a list, in our case we just have 1 output neuron
             if output[0] > 0.5:
                 bird.jump()

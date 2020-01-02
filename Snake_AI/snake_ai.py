@@ -193,7 +193,7 @@ def main(genomes, config):
     for id, g in genomes:
         net = neat.nn.FeedForwardNetwork.create(g, config)
         nets.append(net)
-        s = snake((255,0,0), (5,5))
+        s = snake((255,0,0), (1, 1))
         snakes.append(s)
         snack = cube(randomSnack(rows, s), color=(0,255,0))
         foods.append(snack)
@@ -202,8 +202,7 @@ def main(genomes, config):
         ids.append(id)
 
         while flag:
-            pygame.time.delay(50)
-            clock.tick(10)
+            clock.tick(50)
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -214,15 +213,19 @@ def main(genomes, config):
             s.obs_left, s.obs_right, s.obs_top, s.obs_bot = obstacles(s)
             random_action = random.choice(actions)
             #s.move(random_action)
+            #if g.fitness < 15:
+                #break
             g.fitness -= 1
             output = net.activate((s.obs_left, s.obs_right, s.obs_top, s.obs_bot,
                                         angle_to_food))
-            if output[0] < 0:
-                s.move(0)
-            elif output[0] > 0.5:
+            if output[0] > 0.5:
                 s.move(1)
-            else:
+            elif output[0] < 0.5 and output[0] > 0:
                 s.move(2)
+            elif output[0] < 0 and output[0] > -0.5:
+                s.move(3)
+            elif output[0] < -0.5:
+                s.move(0)
 
             if headPos[0] >= 20 or headPos[0] < 0 or headPos[1] >= 20 or headPos[1] < 0:
                 g.fitness -= 1
@@ -234,6 +237,9 @@ def main(genomes, config):
                 s.addCube()
                 snack = cube(randomSnack(rows,s), color=(0,255,0))
                 g.fitness += 5
+
+            if g.fitness < -100:
+                break
 
             redrawWindow()
 
@@ -253,7 +259,7 @@ def run(config_file):
     ## Call the main function 50 times and pass all the genomes and the config file
     ## Generate a game based on all the genomes
     ## You can save this genome using pickle if needed
-    winner = population.run(main, 50)
+    winner = population.run(main, 1000)
 
 if __name__ == '__main__':
     filepath = os.path.dirname(__file__)
